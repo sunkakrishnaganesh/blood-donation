@@ -783,8 +783,9 @@
     <section class="donation-centers" id="centers">
         <div class="container">
             <h3>Donate Blood - Find Centers</h3>
-  <input id="pac-input" type="text" placeholder="Search address">
-  <div id="map"></div>
+            <input id="pac-input" type="text" placeholder="Search address">
+<div id="map"></div>
+
             <div class="location-filters fade-in delay-1">
                 <input type="text" id="locationSearch" placeholder="Enter your location">
                 <button id="searchButton" class="btn">Search</button>
@@ -902,75 +903,54 @@
     </footer>
 
     <script>
-        function initMap() {
-      // Center the map (example coordinates)
-      const center = { lat: 40.7128, lng: -74.0060 };
-      // Custom style JSON (red/white theme example)
-      const mapStyle = [
-        { elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
-        { elementType: 'labels.text.fill', stylers: [{ color: '#cc0000' }] },
-        { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] }
-        // ... more style rules as needed ...
-      ];
-      // Create map
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: center, zoom: 12, styles: mapStyle
-      });
+    function initMap() {
+  const center = { lat: 40.7128, lng: -74.0060 };
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: center,
+    zoom: 12
+  });
 
-      // Define centers
-      const centers = [
-        { pos: {lat: 40.73061, lng: -73.935242}, title: "Downtown Center", info: "123 Main St"},
-        { pos: {lat: 40.712776, lng: -74.005974}, title: "Uptown Center", info: "456 Elm St"}
-        // ... add more ...
-      ];
-      const infoWindow = new google.maps.InfoWindow();
-      let markers = [];
+  const input = document.getElementById('pac-input');
+  const searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-      // Add markers
-      centers.forEach((c) => {
-        const marker = new google.maps.Marker({
-          position: c.pos, map: map, title: c.title
-        });
-        markers.push(marker);
-        marker.addListener('click', () => {
-          infoWindow.setContent(`<strong>${c.title}</strong><br>${c.info}`);
-          infoWindow.open(map, marker);
-        });
-      });
+  // Bias search results to map's viewport
+  map.addListener('bounds_changed', () => {
+    searchBox.setBounds(map.getBounds());
+  });
 
-      // Search box (optional)
-      const input = document.getElementById('pac-input');
-      const searchBox = new google.maps.places.SearchBox(input);
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-      map.addListener('bounds_changed', () => {
-        searchBox.setBounds(map.getBounds());
+  let markers = [];
+
+  searchBox.addListener('places_changed', () => {
+    const places = searchBox.getPlaces();
+    if (!places || places.length === 0) return;
+
+    // Clear old markers
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+
+    // Zoom to first result and add markers
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach(place => {
+      if (!place.geometry || !place.geometry.location) return;
+
+      const marker = new google.maps.Marker({
+        map,
+        title: place.name,
+        position: place.geometry.location
       });
-      searchBox.addListener('places_changed', () => {
-        const places = searchBox.getPlaces();
-        if (!places || !places.length) return;
-        // Remove old markers
-        markers.forEach(m => m.setMap(null));
-        markers = [];
-        // Add marker for each place found
-        places.forEach(place => {
-          if (!place.geometry || !place.geometry.location) return;
-          const mk = new google.maps.Marker({
-            map: map,
-            title: place.name,
-            position: place.geometry.location
-          });
-          markers.push(mk);
-          mk.addListener('click', () => {
-            infoWindow.setContent(place.name);
-            infoWindow.open(map, mk);
-          });
-        });
-        // Adjust map
-        if (places[0].geometry.viewport) {
-          map.fitBounds(places[0].geometry.viewport);
-        }
-      });
-    }
+      markers.push(marker);
+
+      if (place.geometry.viewport) {
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+}
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
