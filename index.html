@@ -306,8 +306,13 @@
             font-size: 1rem;
         }
         html, body { height: 100%; margin: 0; padding: 0; }
-        #map { width: 100%; height: 400px; /* or use a responsive aspect-ratio or 100% */ }
-
+  /* Map and input styling */
+  #map { width: 100%; height: 400px; } 
+  #pac-input {
+    margin: 10px;
+    padding: 5px;
+    width: 200px;
+  }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
@@ -777,10 +782,9 @@
     <!-- Donation Centers Section -->
     <section class="donation-centers" id="centers">
         <div class="container">
-            <h2 class="section-title">Find a Donation Center Near You</h2>
-            <input id="pac-input" type="text" placeholder="Search for address" />
-            <div id="map"></div>
-
+            <h3>Donate Blood - Find Centers</h3>
+  <input id="pac-input" type="text" placeholder="Search address">
+  <div id="map"></div>
             <div class="location-filters fade-in delay-1">
                 <input type="text" id="locationSearch" placeholder="Enter your location">
                 <button id="searchButton" class="btn">Search</button>
@@ -898,6 +902,75 @@
     </footer>
 
     <script>
+        function initMap() {
+      // Center the map (example coordinates)
+      const center = { lat: 40.7128, lng: -74.0060 };
+      // Custom style JSON (red/white theme example)
+      const mapStyle = [
+        { elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#cc0000' }] },
+        { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] }
+        // ... more style rules as needed ...
+      ];
+      // Create map
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: center, zoom: 12, styles: mapStyle
+      });
+
+      // Define centers
+      const centers = [
+        { pos: {lat: 40.73061, lng: -73.935242}, title: "Downtown Center", info: "123 Main St"},
+        { pos: {lat: 40.712776, lng: -74.005974}, title: "Uptown Center", info: "456 Elm St"}
+        // ... add more ...
+      ];
+      const infoWindow = new google.maps.InfoWindow();
+      let markers = [];
+
+      // Add markers
+      centers.forEach((c) => {
+        const marker = new google.maps.Marker({
+          position: c.pos, map: map, title: c.title
+        });
+        markers.push(marker);
+        marker.addListener('click', () => {
+          infoWindow.setContent(`<strong>${c.title}</strong><br>${c.info}`);
+          infoWindow.open(map, marker);
+        });
+      });
+
+      // Search box (optional)
+      const input = document.getElementById('pac-input');
+      const searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.addListener('bounds_changed', () => {
+        searchBox.setBounds(map.getBounds());
+      });
+      searchBox.addListener('places_changed', () => {
+        const places = searchBox.getPlaces();
+        if (!places || !places.length) return;
+        // Remove old markers
+        markers.forEach(m => m.setMap(null));
+        markers = [];
+        // Add marker for each place found
+        places.forEach(place => {
+          if (!place.geometry || !place.geometry.location) return;
+          const mk = new google.maps.Marker({
+            map: map,
+            title: place.name,
+            position: place.geometry.location
+          });
+          markers.push(mk);
+          mk.addListener('click', () => {
+            infoWindow.setContent(place.name);
+            infoWindow.open(map, mk);
+          });
+        });
+        // Adjust map
+        if (places[0].geometry.viewport) {
+          map.fitBounds(places[0].geometry.viewport);
+        }
+      });
+    }
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -958,7 +1031,7 @@
         }
 
         window.addEventListener('scroll', () => {
-            if (document.querySelector('.counter:not(.animated)') {
+            if (document.querySelector('.counter:not(.animated)')){
                 animateCounters();
             }
         });
@@ -1010,126 +1083,13 @@
                 }
             });
         });
-        function initMap() {
-        // Map center (e.g. city center)
-                const center = { lat: 40.7128, lng: -74.0060 };  // example: New York City
-                // Custom style array (e.g. red/white theme)
-                const mapStyle = [
-                    { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }]},
-                    { elementType: 'labels.text.fill', stylers: [{ color: '#cd282b' }]},
-                    { elementType: 'labels.icon', stylers: [{ visibility: 'off' }]},
-                    // ... add more style rules to emphasize red and white ...
-                ];
-                
-                // Create the map
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    center: center,
-                    zoom: 13,
-                    styles: mapStyle,           // apply custom style JSON (MapOptions.styles):contentReference[oaicite:5]{index=5}
-                    mapTypeControl: false       // hide map/satellite toggle (optional)
-                });
-                
-                // Example: Add a label or title (if needed)
-                // google.maps.event.addListenerOnce(map, 'idle', function(){
-                //   map.getDiv().insertAdjacentHTML('afterbegin','<h2>Donation Centers</h2>');
-                // });
-                }
 
         // Initialize all accordion contents to be closed
         document.querySelectorAll('.accordion-content').forEach(content => {
             content.style.maxHeight = null;
         });
-        function initMap() {
-  // ... create map as above ...
-        const centers = [
-                {pos: {lat: 40.73061, lng: -73.935242}, title: "Center A", info: "Address of Center A"},
-                {pos: {lat: 40.712776, lng: -74.005974}, title: "Center B", info: "Address of Center B"},
-                // add more centers as needed
-            ];
-            const infoWindow = new google.maps.InfoWindow();  // single InfoWindow for reuse
-            const markers = [];
-            
-            centers.forEach((center) => {
-                const marker = new google.maps.Marker({
-                position: center.pos,
-                map: map,
-                title: center.title
-                // You can also specify a custom icon here if desired
-                });
-                markers.push(marker);
-                marker.addListener('click', () => {
-                infoWindow.setContent(`<div><strong>${center.title}</strong><br>${center.info}</div>`);
-                infoWindow.open(map, marker);
-                });
-            });
-            }
 
-
-        // Google Maps Integration
-        function initMap() {
-            // Default location (center of the map)
-            const center = { lat: 40.7128, lng: -74.0060 }; // New York coordinates
-            
-            // Create a map centered at the default location
-            const map = new google.maps.Map(document.getElementById('googleMap'), {
-                zoom: 12,
-                center: center
-            });
-            
-            // Add some sample markers (in a real app, these would come from your database)
-            const locations = [
-                {
-                    position: { lat: 40.7128, lng: -74.0060 },
-                    title: "Main Blood Donation Center",
-                    address: "123 Health St, Medical City"
-                },
-                {
-                    position: { lat: 40.7228, lng: -73.9960 },
-                    title: "Downtown Donation Center",
-                    address: "456 Care Ave, Downtown"
-                },
-                {
-                    position: { lat: 40.7028, lng: -74.0160 },
-                    title: "Westside Blood Bank",
-                    address: "789 Life Blvd, Westside"
-                }
-            ];
-            
-            // Add markers to the map
-            locations.forEach(location => {
-                const marker = new google.maps.Marker({
-                    position: location.position,
-                    map: map,
-                    title: location.title
-                });
-                
-                // Add info window to each marker
-                const infoWindow = new google.maps.InfoWindow({
-                    content: `<h3>${location.title}</h3><p>${location.address}</p>`
-                });
-                
-                marker.addListener('click', () => {
-                    infoWindow.open(map, marker);
-                });
-            });
-            
-            // Search functionality
-            const searchButton = document.getElementById('searchButton');
-            const locationSearch = document.getElementById('locationSearch');
-            
-            searchButton.addEventListener('click', () => {
-                const geocoder = new google.maps.Geocoder();
-                
-                geocoder.geocode({ address: locationSearch.value }, (results, status) => {
-                    if (status === 'OK' && results[0]) {
-                        map.setCenter(results[0].geometry.location);
-                        map.setZoom(14);
-                    } else {
-                        alert('Location not found. Please try another search term.');
-                    }
-                });
-            });
-        }
+        // Google Maps Integratio
 
         // For demo purposes, we'll initialize the map when the page loads
         // In a real implementation, you would load the Google Maps API with your API key
@@ -1171,8 +1131,8 @@
     </script>
 
     <!-- Load Google Maps API (replace YOUR_API_KEY with your actual API key) -->
-    <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
-</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA39iQC-5FTw-bFYf5lCNna1f2XAQe_Ai8&libraries=places&callback=initMap" async defer></script>
+
+
 </body>
 </html>
