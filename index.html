@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LifeSaver Blood Donation - Donate blood and save lives">
+    <title>LifeSaver Blood Donation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variables */
+        :root {
+            --primary: #FF0000;
+            --secondary: #CC0000;
+            --accent: #FF6B6B;
+            --white: #FFFFFF;
+            --text: #333333;
+            --light-gray: #F5F5F5;
+            --gray: #E0E0E0;
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .hero-animation {
+            max-width: 500px;
+            margin: 40px auto 0;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Why Donate Section */
+        .why-donate {
+            background-color: var(--light-gray);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Donor Form Section */
+        .donor-form {
+            background-color: var(--white);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--light-gray);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        html, body { height: 100%; margin: 0; padding: 0; }
+        #map { width: 100%; height: 400px; /* or use a responsive aspect-ratio or 100% */ }
+
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        /* Donation Centers Section */
+        .donation-centers {
+            background-color: var(--light-gray);
+        }
+
+        .map-container {
+            height: 500px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #googleMap {
+            height: 100%;
+            width: 100%;
+        }
+
+        .location-filters {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #locationSearch {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--white);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-card {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 15px;
+        }
+
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* FAQ Section */
+        .faq {
+            background-color: var(--light-gray);
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 20px;
+            background-color: var(--white);
+            border: none;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .accordion-header:hover {
+            background-color: var(--gray);
+        }
+
+        .accordion-header i {
+            transition: var(--transition);
+        }
+
+        .accordion-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .accordion-content p {
+            padding: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 150px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .stat-item {
+                min-width: 100%;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .testimonial-card {
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class='bx bx-donate-heart'></i>
+                <span>LifeSaver</span>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class='bx bx-menu'></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#centers">Centers</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Give Blood, Save Lives</h1>
+                <p>Every donation can save up to 3 lives. Become a hero today by donating blood and making a difference in someone's life.</p>
+                <div class="hero-btns">
+                    <a href="#donate" class="btn">Donate Now</a>
+                    <a href="#centers" class="btn btn-outline">Find a Center</a>
+                </div>
+            </div>
+            <div class="hero-animation fade-in delay-1">
+                <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_k0mhpehz.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-container">
+            <div class="stat-item fade-in">
+                <div class="counter" data-target="12500">0</div>
+                <p>Lives Saved</p>
+            </div>
+            <div class="stat-item fade-in delay-1">
+                <div class="counter" data-target="4500">0</div>
+                <p>Donors Registered</p>
+            </div>
+            <div class="stat-item fade-in delay-2">
+                <div class="counter" data-target="320">0</div>
+                <p>Donation Camps</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Donate Section -->
+    <section class="why-donate" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Your Donation Matters</h2>
+            <p class="fade-in" style="text-align: center; max-width: 800px; margin: 0 auto;">Blood donations are essential for surgeries, cancer treatment, chronic illnesses, and traumatic injuries. A single donation can be separated into red cells, plasma, and platelets to help multiple patients.</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <i class='bx bx-plus-medical'></i>
+                    <h3>Emergency Situations</h3>
+                    <p>Critical for accident victims and surgical patients who need immediate blood transfusions to survive.</p>
+                </div>
+                <div class="benefit-card fade-in delay-1">
+                    <i class='bx bx-heart'></i>
+                    <h3>Chronic Illnesses</h3>
+                    <p>Patients with conditions like sickle cell anemia need regular blood transfusions throughout their lives.</p>
+                </div>
+                <div class="benefit-card fade-in delay-2">
+                    <i class='bx bx-test-tube'></i>
+                    <h3>Medical Procedures</h3>
+                    <p>Essential for complex surgeries, organ transplants, and cancer treatments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donor Form Section -->
+    <section class="donor-form" id="donate">
+        <div class="container">
+            <h2 class="section-title">Become a Donor</h2>
+            <div class="form-container fade-in">
+                <form id="donorRegistration">
+                    <div class="form-group">
+                        <label for="fullName">Full Name*</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Contact Number*</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bloodType">Blood Type*</label>
+                            <select id="bloodType" required>
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="donationDate">Preferred Donation Date</label>
+                            <input type="date" id="donationDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Any Additional Information</label>
+                        <textarea id="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Register as Donor</button>
+                </form>
+                
+                <div id="formSuccess" class="success-message">
+                    Thank you for registering as a blood donor! We'll contact you soon to schedule your donation.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Centers Section -->
+    <section class="donation-centers" id="centers">
+        <div class="container">
+            <h2 class="section-title">Find a Donation Center Near You</h2>
+            <input id="pac-input" type="text" placeholder="Search for address" />
+            <div id="map"></div>
+
+            <div class="location-filters fade-in delay-1">
+                <input type="text" id="locationSearch" placeholder="Enter your location">
+                <button id="searchButton" class="btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Donor Stories</h2>
+            <div class="testimonial-slider fade-in">
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="testimonial-img">
+                    <p class="testimonial-text">"I've been donating blood for 5 years now. Knowing that my donations have helped save lives gives me a sense of purpose. The staff at LifeSaver make the process so easy and comfortable."</p>
+                    <p class="testimonial-author">- Sarah Johnson, Regular Donor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="accordion fade-in">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Who can donate blood?
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Generally, donors must be at least 17 years old (16 with parental consent in some areas), weigh at least 110 pounds, and be in good health. There are some additional eligibility requirements based on medical history, travel, and medications. All donors must pass a health screening on the day of donation.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        How often can I donate blood?
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>You can donate whole blood every 56 days (8 weeks). Platelet donors can donate more frequently - up to 24 times per year. Plasma donors can donate every 28 days. The waiting period between donations allows your body to replenish its blood supply.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Does donating blood hurt?
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>You may feel a brief pinch when the needle is inserted, but most donors report little to no pain during the donation process. The actual donation typically takes about 8-10 minutes for a whole blood donation.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        How long does the donation process take?
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The entire process takes about an hour from start to finish. This includes registration, a health history questionnaire, a mini-physical, the donation itself (which takes about 8-10 minutes), and refreshments afterward.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Is it safe to donate blood?
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes, donating blood is very safe. All equipment used is sterile, disposable, and used only once. There is no risk of contracting any infectious disease from donating blood. Our staff are trained professionals who follow strict safety protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#donate">Donate Blood</a></li>
+                        <li><a href="#centers">Donation Centers</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class='bx bx-map'></i> 123 Health Street, Medical City</p>
+                    <p><i class='bx bx-phone'></i> (555) 123-4567</p>
+                    <p><i class='bx bx-envelope'></i> info@lifesaver.org</p>
+                    <div class="social-links">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates about blood donation campaigns and events.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit"><i class='bx bx-send'></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LifeSaver Blood Donation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="bx bx-x"></i>' : '<i class="bx bx-menu"></i>';
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="bx bx-menu"></i>';
+                }
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target && isInViewport(counter)) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        window.addEventListener('scroll', () => {
+            if (document.querySelector('.counter:not(.animated)') {
+                animateCounters();
+            }
+        });
+
+        // Form Submission
+        const donorForm = document.getElementById('donorRegistration');
+        const formSuccess = document.getElementById('formSuccess');
+
+        donorForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For demo purposes, we'll just show the success message
+            formSuccess.style.display = 'block';
+            donorForm.reset();
+            
+            // Scroll to show the success message
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide the success message after 5 seconds
+            setTimeout(() => {
+                formSuccess.style.display = 'none';
+            }, 5000);
+        });
+
+        // Accordion Functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const accordionItem = header.parentElement;
+                const accordionContent = header.nextElementSibling;
+                
+                // Close all other accordion items
+                document.querySelectorAll('.accordion-content').forEach(content => {
+                    if (content !== accordionContent) {
+                        content.style.maxHeight = null;
+                        content.previousElementSibling.classList.remove('active');
+                    }
+                });
+
+                // Toggle current item
+                header.classList.toggle('active');
+                
+                if (header.classList.contains('active')) {
+                    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                } else {
+                    accordionContent.style.maxHeight = null;
+                }
+            });
+        });
+        function initMap() {
+        // Map center (e.g. city center)
+                const center = { lat: 40.7128, lng: -74.0060 };  // example: New York City
+                // Custom style array (e.g. red/white theme)
+                const mapStyle = [
+                    { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }]},
+                    { elementType: 'labels.text.fill', stylers: [{ color: '#cd282b' }]},
+                    { elementType: 'labels.icon', stylers: [{ visibility: 'off' }]},
+                    // ... add more style rules to emphasize red and white ...
+                ];
+                
+                // Create the map
+                const map = new google.maps.Map(document.getElementById('map'), {
+                    center: center,
+                    zoom: 13,
+                    styles: mapStyle,           // apply custom style JSON (MapOptions.styles):contentReference[oaicite:5]{index=5}
+                    mapTypeControl: false       // hide map/satellite toggle (optional)
+                });
+                
+                // Example: Add a label or title (if needed)
+                // google.maps.event.addListenerOnce(map, 'idle', function(){
+                //   map.getDiv().insertAdjacentHTML('afterbegin','<h2>Donation Centers</h2>');
+                // });
+                }
+
+        // Initialize all accordion contents to be closed
+        document.querySelectorAll('.accordion-content').forEach(content => {
+            content.style.maxHeight = null;
+        });
+        function initMap() {
+  // ... create map as above ...
+        const centers = [
+                {pos: {lat: 40.73061, lng: -73.935242}, title: "Center A", info: "Address of Center A"},
+                {pos: {lat: 40.712776, lng: -74.005974}, title: "Center B", info: "Address of Center B"},
+                // add more centers as needed
+            ];
+            const infoWindow = new google.maps.InfoWindow();  // single InfoWindow for reuse
+            const markers = [];
+            
+            centers.forEach((center) => {
+                const marker = new google.maps.Marker({
+                position: center.pos,
+                map: map,
+                title: center.title
+                // You can also specify a custom icon here if desired
+                });
+                markers.push(marker);
+                marker.addListener('click', () => {
+                infoWindow.setContent(`<div><strong>${center.title}</strong><br>${center.info}</div>`);
+                infoWindow.open(map, marker);
+                });
+            });
+            }
+
+
+        // Google Maps Integration
+        function initMap() {
+            // Default location (center of the map)
+            const center = { lat: 40.7128, lng: -74.0060 }; // New York coordinates
+            
+            // Create a map centered at the default location
+            const map = new google.maps.Map(document.getElementById('googleMap'), {
+                zoom: 12,
+                center: center
+            });
+            
+            // Add some sample markers (in a real app, these would come from your database)
+            const locations = [
+                {
+                    position: { lat: 40.7128, lng: -74.0060 },
+                    title: "Main Blood Donation Center",
+                    address: "123 Health St, Medical City"
+                },
+                {
+                    position: { lat: 40.7228, lng: -73.9960 },
+                    title: "Downtown Donation Center",
+                    address: "456 Care Ave, Downtown"
+                },
+                {
+                    position: { lat: 40.7028, lng: -74.0160 },
+                    title: "Westside Blood Bank",
+                    address: "789 Life Blvd, Westside"
+                }
+            ];
+            
+            // Add markers to the map
+            locations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: location.position,
+                    map: map,
+                    title: location.title
+                });
+                
+                // Add info window to each marker
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<h3>${location.title}</h3><p>${location.address}</p>`
+                });
+                
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+            
+            // Search functionality
+            const searchButton = document.getElementById('searchButton');
+            const locationSearch = document.getElementById('locationSearch');
+            
+            searchButton.addEventListener('click', () => {
+                const geocoder = new google.maps.Geocoder();
+                
+                geocoder.geocode({ address: locationSearch.value }, (results, status) => {
+                    if (status === 'OK' && results[0]) {
+                        map.setCenter(results[0].geometry.location);
+                        map.setZoom(14);
+                    } else {
+                        alert('Location not found. Please try another search term.');
+                    }
+                });
+            });
+        }
+
+        // For demo purposes, we'll initialize the map when the page loads
+        // In a real implementation, you would load the Google Maps API with your API key
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if Google Maps API is loaded
+            if (typeof google !== 'undefined') {
+                initMap();
+            } else {
+                // Fallback - show a message or static image
+                document.getElementById('googleMap').innerHTML = 
+                    '<p style="text-align:center; padding: 20px;">Map loading failed. Please check your internet connection.</p>';
+            }
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        function checkScroll() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize elements as invisible
+        fadeElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+
+    <!-- Load Google Maps API (replace YOUR_API_KEY with your actual API key) -->
+    <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
+</script>
+</body>
+</html>
